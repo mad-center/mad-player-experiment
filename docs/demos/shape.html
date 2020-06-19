@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>starter</title>
+    <style>
+        svg {
+            overflow: visible; /*make enough space for visual scale*/
+        }
+    </style>
+</head>
+<body>
+<div id="circle"></div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mo-js/0.288.2/mo.js"></script>
+<script src="//cdn.jsdelivr.net/npm/mojs-player@0.43.16/build/mojs-player.min.js"></script>
+<script>
+    console.log(mojs); // mojs is defined
+    console.log(MojsPlayer); // mojs player
+</script>
+<script>
+    // 40 x 20 size
+    var circle = new mojs.Shape({
+        shape: 'circle',
+        radius: 10,
+        radiusX: 20, // explicit radiusX
+        left: '25%',
+        fill: 'deeppink',
+        isShowStart: true,
+    });
+
+    // 30 x 30 size
+    var rect = new mojs.Shape({
+        shape: 'rect',
+        radius: 15,
+        left: '50%',
+        fill: 'cyan',
+        isShowStart: true,
+    });
+
+    //
+    var polygon = new mojs.Shape({
+        shape: 'polygon',
+        radiusX: 10,
+        radiusY: 20,
+        left: '75%',
+        fill: 'yellow',
+        isShowStart: true,
+    });
+
+    // create the timeline
+    // const mainTimeline = new mojs.Timeline({});
+
+    // add the timeline to the player
+    const mojsPlayer = new MojsPlayer({
+        // add: mainTimeline
+        // add: circle,rect
+    });
+</script>
+</body>
+</html>

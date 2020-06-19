@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>timeline hook test</title>
+    <style>
+        body, html {
+            padding: 0;
+        }
+
+        .bg {
+            width: 640px;
+            height: 360px;
+            background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url(../../src/footage/bg_03.jpg);
+            background-size: cover;
+            background-position: 0 70%;
+        }
+
+        .move-background-y {
+            /*开头速度很快，后面急速变慢*/
+            animation: move-background-y 2s cubic-bezier(0.16, 0.65, 0.5, 1) 1;
+        }
+
+        /* move on only x axis*/
+        @keyframes move-background-y {
+            from {
+                background-position: 0 70%;
+            }
+
+            to {
+                background-position: 0 40%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="bg" id="js-el">
+    <span id="scene8-text" class="text u-center">
+          例えば成長だとか変化だとか本物だとか<br/>そうした言葉を誰もが違う意味で使っているように
+    </span>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mo-js/0.288.2/mo.js"></script>
+<script src="//cdn.jsdelivr.net/npm/mojs-player@0.43.16/build/mojs-player.min.js"></script>
+<script>
+    const scene8_bg = new mojs.Html({
+        el: '#js-el',
+        opacity: {
+            0: 1,
+            duration: 50,
+        },
+        duration: 1950,
+        // opacity: 1,
+        // duration: 2000,
+        onStart() {
+            console.log("bg onStart")
+            this.el.classList.add('move-background-y')
+        },
+        onComplete() {
+            console.log("bg onComplete")
+            this.el.classList.remove('move-background-y')
+        }
+    });
+
+    let scene8_text = new mojs.Html({
+        el: '#scene8-text',
+        x: '50%',
+        y: '50%',
+        color: 'white',
+        opacity: {0: 1, duration: 50},
+        // duration: 1950,
+        onStart() {
+            console.log("scene8_text onStart")
+        },
+        onComplete() {
+            console.log("scene8_text onComplete")
+        }
+    });
+
+    const timeline = new mojs.Timeline();
+    timeline
+        .add(scene8_bg, scene8_text)
+
+    const mojsPlayer = new MojsPlayer({
+        add: timeline
+    });
+</script>
+</body>
+</html>

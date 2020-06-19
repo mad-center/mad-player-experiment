@@ -1,0 +1,184 @@
+/* fix mojs bug*/
+svg {
+    overflow: visible; /*make enough space for visual scale*/
+}
+
+@font-face {
+    font-family: SawarabiMincho-Regular;
+    src: url('../font/SawarabiMincho-Regular.ttf');
+}
+
+html, body {
+    display: flex;
+    min-height: 100vh;
+    min-width: 100vw;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0; /*remove default margin*/
+
+    font-family: 'SawarabiMincho-Regular', 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+}
+
+/* 16: 9 proportion for mad player*/
+.mad-container {
+    position: relative; /* for mojs element center*/
+    overflow: hidden; /*make bg image overflow invisible*/
+
+    width: 640px;
+    height: 360px;
+
+    background-color: black;
+}
+
+/* 使用absolute将 container 的直接子代元素素材绝对定位，方便定位*/
+.mad-container > * {
+    position: absolute;
+}
+
+/* z-index arrangement
+-------------------------------------
+- default element: 0
+- background image: 0
+- text: 10
+- after effect: 20
+*/
+
+/* background utilities
+--------------------------------------------------
+ */
+img.background {
+    background-size: cover;
+    max-width: 100%;
+}
+
+div.background {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+
+.background.white {
+    background-color: white;
+}
+
+.background.black {
+    background-color: black;
+}
+
+.u-color-red-to-black {
+    background: linear-gradient(to right, red, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.u-full-width {
+    width: 100%;
+}
+
+.u-top-line {
+    border-top: .5px solid black;
+}
+
+.u-bottom-line {
+    border-bottom: .5px solid black;
+}
+
+.u-text-center {
+    text-align: center;
+}
+
+/* text basic style*/
+.text {
+    font-size: 18px;
+    display: block;
+    white-space: nowrap; /*文字默认不换行*/
+    z-index: 10;
+}
+
+/*
+padding top/bottom scale bigger
+-------↑
+-------↓
+*/
+@keyframes padding-bigger {
+    from {
+        padding: 0;
+    }
+
+    to {
+        padding: 8px;
+    }
+}
+
+.padding-bigger {
+    animation: padding-bigger 1s ease-in-out forwards 1; /* duration > 1s*/
+}
+
+/* only center left-top corner point, Need to set transform(-50%,-50%) in mojs to perfectly centered*/
+.u-center {
+    left: 50%;
+    top: 50%;
+}
+
+.u-text-shadow {
+    text-shadow: 2px 2px 6px #8e8b8b, -2px -2px 6px #918383;
+}
+
+.u-small-line-height {
+    line-height: 1;
+}
+
+.u-huge-large {
+    font-size: 64px;
+}
+
+
+/* just hack */
+.background-03-dimming {
+    background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('../footage/bg_03.jpg');
+    background-position: 0 70%;
+}
+
+.background-04-dimming {
+    background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url('../footage/bg_04.jpg');
+    background-position: 0 10%; /*-> 0 40%*/
+}
+
+.background-06-dimming {
+    background: linear-gradient(rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), url('../footage/bg_06.jpg');
+    background-position: 0 0;
+}
+
+
+.move-background-y {
+    /*开头速度很快，后面急速变慢*/
+    /*务必使用 forwards 使得动画效果持久化到最后一帧*/
+    animation: move-background-y 2s cubic-bezier(0.16, 0.65, 0.5, 1) forwards 1;
+}
+
+/* move on only y axis*/
+@keyframes move-background-y {
+    from {
+        background-position: 0 70%;
+    }
+
+    to {
+        background-position: 0 40%;
+    }
+}
+
+.move-background-y-down {
+    /*开头速度很快，后面急速变慢*/
+    animation: move-background-y-down 2s cubic-bezier(0.16, 0.65, 0.5, 1) forwards 1;
+}
+
+@keyframes move-background-y-down {
+    from {
+        background-position: 0 10%;
+    }
+
+    to {
+        background-position: 0 40%;
+    }
+}

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MAD demo imitate @totori MAD 应该存在的言语</title>
+    <link href="src/css/style.css" rel="stylesheet">
+    <link href="src/css/bubble.css" rel="stylesheet">
+    <link href="src/css/text-blink.css" rel="stylesheet">
+</head>
+<body>
+<div id="mad-container" class="mad-container">
+
+    <!--    scene1-->
+    <img id="scene1-bg" class="background" src="src/footage/bg_01.jpg" alt=""/>
+    <span id="scene1-text" class="text u-center u-text-shadow">人は誰しも嘘を吐く</span>
+    <div id="scene1-particle" class="particle-container">
+        <div class="bubbles" num="50" duration="15"></div>
+    </div>
+
+    <!--    scene2-->
+    <span id="scene2-text" class="text u-center u-text-shadow">意図がなくても言葉にしなくて導になる「ともある</span>
+
+    <!--    scene3-->
+    <span id="scene3-text" class="text u-center u-text-shadow">もしかしたら</span>
+
+    <span id="scene4-text" class="text u-center u-text-shadow">あるいは</span>
+
+    <span id="scene5-text" class="text u-center u-text-shadow">嘘を吐いたと判断されたときに<br/>言葉は嘘となるのかもしれない</span>
+
+    <span id="scene6-text" class="text u-center u-text-shadow">
+<!--        todo refactor to two span within one text container for perfectly center-->
+        &nbsp;&nbsp;&nbsp;&nbsp;結局のところ伝えた言葉が偽物か本物か<br/>
+        その判断は受けとる側に委ねられるのだろう
+    </span>
+
+    <div id="scene7-bg" class="background white"></div>
+
+    <span id="scene7-text"
+          class="text u-center u-text-center u-full-width u-top-line u-bottom-line u-color-red-to-black u-small-line-height">
+        だから彼も彼女も、そして誰しも嘘を吐く
+    </span>
+
+    <!--  这是一幅需要颜色变暗的图片，使用div容器，然后使用background: linear-gradient实现变暗-->
+    <div id="scene8-bg" class="background background-03-dimming"></div>
+    <span id="scene8-text" class="text u-center">
+          例えば成長だとか変化だとか本物だとか<br/>そうした言葉を誰もが違う意味で使っているように
+    </span>
+
+    <div id="scene9-bg" class="background background-04-dimming"></div>
+
+    <div id="scene10-bg" class="background black"></div>
+    <span id="scene10-text" class="text u-center">きっと言葉を伝えるのは酷く難しいことなのだろう</span>
+
+    <div id="scene11-bg" class="background background-06-dimming"></div>
+    <span id="scene11-text" class="text u-center u-huge-large">在るべき言の葉</span>
+
+</div>
+<script src="src/js/mo.js"></script>
+<script src="src/js/mojs-player.js"></script>
+<script src="src/js/plugins/bubble.js"></script>
+<script>
+    // scene 1: 00 00 01 - 00 00 02
+    // 背景图片1突然出现，粒子效果从底部往上飘，中间出现文字，文字稍微闪烁
+
+    // 1s延迟后bg出现
+    let scene1_bg = new mojs.Html({
+        el: '#scene1-bg',
+        delay: 1000,
+        opacity: {0: 1},
+        duration: 100
+
+        // todo add play bgm event listener
+    });
+
+    // 文字闪现：字边缘glow效果 -> css text-shadow,叠两层
+    // 2s 后消失
+    let scene1_text = new mojs.Html({
+        el: '#scene1-text',
+        x: '-50%',
+        y: '-50%',
+        color: 'white',
+        delay: 1100,
+        opacity: {0: 1},
+        duration: 100,
+        easing: 'bounce.in'
+    }).then({
+        delay: 800,
+        opacity: 0
+    });
+
+    // 粒子效果。不同开始地点，不同方向，移动速度很慢，透明度适当，半径大小在一定范围内随机
+    // refer: https://medium.com/@nana8/css-box-shadow-what-is-difference-between-blur-and-spread-c3a3de92a126
+    // 实现原理： box-shadow 实现边缘glow，background radial gradient实现渐变模糊的粒子圆圈
+    // todo 粒子开始的位置范围应该为视角矩形的外围矩形内，随机坐标点
+    let scene1_particle = new mojs.Html({
+        el: '#scene1-particle',
+        delay: 1000,
+        onStart(isForward, isYoyo) {
+            console.log("start bubble")
+            window.bubbleUp();
+        },
+        duration: 1000,
+    });
+</script>
+<script>
+    // scene 2
+    // todo 文字闪烁
+    let scene2_text = new mojs.Html({
+        el: '#scene2-text',
+        x: '-50%',
+        y: '-50%',
+        color: 'white',
+        opacity: {0: 1},
+        duration: 50
+    }).then({
+        delay: 1000,
+        opacity: 0
+    });
+</script>
+<script>
+    let scene3_text = new mojs.Html({
+        el: '#scene3-text',
+        x: '-50%',
+        y: '-50%',
+        color: 'white',
+        opacity: {0: 1},
+        duration: 50
+    }).then({
+        delay: 1000,
+        opacity: 0
+    });
+</script>
+<script>
+    let scene4_text = new mojs.Html({
+        el: '#scene4-text',
+        x: '-50%',
+        y: '-50%',
+        color: 'white',
+        opacity: {0: 1},
+        duration: 50
+    }).then({
+        delay: 500,
+        opacity: 0
+    });
+</script>
+<script>
+    let scene5_text = new mojs.Html({
+        el: '#scene5-text',
+        x: '-50%',
+        y: '-50%',
+        color: 'white',
+        opacity: {0: 1},
+        duration: 50
+    }).then({
+        duration: 1000,
+        opacity: 1
+    })
+      .then({
+          // easing and duration must only apply to opacity to implement text fade out
+          opacity: {1: 0, easing: 'ease.out', duration: 1000},
+      });
+</script>
+<script>
+    let scene6_text = new mojs.Html({
+        el: '#scene6-text',
+        x: '-50%',
+        y: '-50%',
+        color: 'white',
+        opacity: {0: 1, duration: 50},
+        scale: {1: 1.02, duration: 500, easing: 'ease.out'},
+    }).then({
+        duration: 100,
+        opacity: 0
+    });
+</script>
+<script>
+    let scene7_bg = new mojs.Html({
+        el: '#scene7-bg',
+        opacity: {0: 1},
+        duration: 50
+    })
+
+    // 文字大小稍微变大，
+    // 注意：上下横线间隔稍微变大,优化点：padding-bigger 动画一次播放存在bug，暂时使用infinite次数播放。complete时移除该类
+    let scene7_text = new mojs.Html({
+            el: '#scene7-text',
+            x: '-50%',
+            y: '-50%',
+            opacity: {0: 1, duration: 50},
+            scale: {1: 1.1, duration: 950, easing: 'ease.inout'},
+            onStart(isForward, isYoyo) {
+                let text = document.querySelector('#scene7-text');
+                // reset text padding
+                // text.style.padding = '0px';
+                if (text.classList.contains('padding-bigger')) {
+                    text.classList.remove('padding-bigger')
+                }
+
+                text.classList.add('padding-bigger');
+            },
+        })
+            .then({
+                opacity: 0,
+                duration: 50,
+                onComplete(isForward, isYoyo) {
+                    let text = document.querySelector('#scene7-text');
+                    text.classList.remove('padding-bigger');
+                },
+            })
+    ;
+
+</script>
+<script>
+    // scene 8: 2s
+    let scene8_bg = new mojs.Html({
+        el: '#scene8-bg',
+        opacity: {0: 1, duration: 50},
+        // duration: 1950,
+        onStart() {
+            this.el.classList.add('move-background-y')
+        },
+        onComplete() {
+            // this.el.classList.remove('move-background-y')
+        }
+    });
+
+    // fixme: 文字出现稍微有点迟
+    let scene8_text = new mojs.Html({
+        el: '#scene8-text',
+        x: '-50%',
+        y: '-50%',
+        color: 'white',
+        opacity: {0: 1, duration: 50},
+        duration: 2000,
+        onStart() {
+            console.log("scene8_text onStart")
+        },
+        onComplete() {
+            console.log("scene8_text onComplete")
+            // remove scene8-bg move utility css class
+            let scene8_bg = document.querySelector('#scene8-bg');
+            scene8_bg.classList.remove('move-background-y');
+        }
+    });
+
+</script>
+<script>
+    // scene 9: 2s
+    let scene9_bg = new mojs.Html({
+        el: '#scene9-bg',
+        opacity: {0: 1, duration: 50},
+        // duration: 1950,
+        onStart() {
+            this.el.classList.add('move-background-y-down')
+        }
+    });
+
+    // just copy previous s8 text and modify
+    let scene9_text = new mojs.Html({
+        el: '#scene8-text',
+        x: '-50%',
+        y: '-50%',
+        color: 'white',
+        opacity: {0: 1, duration: 50},
+        duration: 2000,
+        onStart() {
+            console.log("scene9_text onStart")
+        },
+        onComplete() {
+            console.log("scene9_text onComplete")
+            // remove scene9-bg move utility css class
+            let scene9_bg = document.querySelector('#scene9-bg');
+            scene9_bg.classList.remove('move-background-y-down')
+        }
+    }).then({
+        opacity: 0,
+        duration: 50
+    });
+</script>
+<script>
+    let scene10_bg = new mojs.Html({
+        el: '#scene10-bg',
+        opacity: {0: 1, duration: 50},
+    });
+
+    let scene10_text = new mojs.Html({
+        el: '#scene10-text',
+        x: '-50%',
+        y: '-50%',
+        color: 'white',
+        opacity: {0: 1, duration: 50},
+        scale: {1: 0.98, duration: 1000},/*文字变小，很慢*/
+        duration: 2000,
+    }).then({
+        opacity: 0,
+        duration: 50
+    });
+
+</script>
+
+<script>
+    let scene11_bg = new mojs.Html({
+        el: '#scene11-bg',
+        opacity: {0: 1, duration: 10},
+    });
+
+    let scene11_text = new mojs.Html({
+        el: '#scene11-text',
+        x: '-50%',
+        y: '-50%',
+        color: 'white',
+        scale: {1: 0.95, duration: 1000, easing: 'ease.in'},
+        opacity: {0: 1, duration: 50},
+        duration: 1000,
+    });
+
+    //todo blue line
+    //todo next line text
+</script>
+<script>
+    // 时间线
+    // add ( item1,item2,...) 这种方式表示item1,item2，...同时开始
+    // add ( item1).append(item2)表示item1完成后，item2才开始
+    const timeline = new mojs.Timeline();
+    timeline
+        .add(scene1_bg, scene1_text, scene1_particle)
+        .append(scene2_text)
+        .append(scene3_text)
+        .append(scene4_text)
+        .append(scene5_text)
+        .append(scene6_text)
+        .append(scene7_bg, scene7_text)
+        .append(scene8_bg, scene8_text)
+        .append(scene9_bg, scene9_text)
+        .append(scene10_bg, scene10_text)
+        .append(scene11_bg, scene11_text)
+
+    // add the timeline to the player
+    // 1) no total timeline statistic ?
+    const mojsPlayer = new MojsPlayer({
+        add: timeline
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bg move</title>
+    <style>
+        .bg {
+            width: 640px;
+            height: 360px;
+            background: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url(../../src/footage/bg_03.jpg);
+            background-size: cover;
+
+            /*开头速度很快，后面急速变慢*/
+            animation: move-background 2s cubic-bezier(0.16, 0.65, 0.5, 1) infinite;
+        }
+
+        /* move on only x axis*/
+        @keyframes move-background {
+            from {
+                background-position: 0 70%;
+            }
+
+            to {
+                background-position: 0 40%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="bg">
+
+</div>
+</body>
+</html>

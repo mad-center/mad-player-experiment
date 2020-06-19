@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>text blink</title>
+    <style type="text/css">
+        @keyframes blink {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .blink {
+            color: #dd4814;
+            animation: blink 1s linear 1;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    文字闪烁：<span class="blink">人は誰しも嘘を吐く</span>
+</div>
+</body>
+</html>

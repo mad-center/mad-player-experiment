@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>timeline hook test</title>
+    <style>
+        body, html {
+            padding: 0;
+        }
+
+        svg {
+            overflow: visible; /*make enough space for visual scale*/
+        }
+
+        body {
+            background: rgba(241, 226, 215, 0.2);
+        }
+
+        .el {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            left: 50%;
+            top: 50%;
+            margin-left: -50px;
+            margin-top: -50px;
+            background: #572B53;
+        }
+    </style>
+</head>
+<body>
+<div class="el" id="js-el"></div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mo-js/0.288.2/mo.js"></script>
+<script src="//cdn.jsdelivr.net/npm/mojs-player@0.43.16/build/mojs-player.min.js"></script>
+<script>
+    // console.log(mojs); // mojs is defined
+    // console.log(MojsPlayer); // mojs player
+</script>
+<script>
+    const html = new mojs.Html({
+        // selector for HTMLElement
+        el: '#js-el',
+        // animate translateX from 0 to 200 pixels
+        // each delta object can have entire set of tween properties and callbacks
+        x: {
+            0: 200,
+            duration: 1000,
+            easing: 'cubic.in',
+            onComplete() {
+                console.log('x property animation complete')
+            }
+        },
+        angleZ: {
+            0: 360,
+            duration: 1500,
+            onComplete() {
+                console.log('angleZ animation complete')
+            }
+        },
+        duration: 3000,
+        onStart() {
+            console.log(" main onStart")
+        },
+        onComplete() {
+            console.log(" main onComplete")
+        }
+    });
+
+    new MojsPlayer({add: html});
+
+    // main onStart
+    // x property animation complete
+    // angleZ animation complete
+    // main onComplete
+</script>
+</body>
+</html>
